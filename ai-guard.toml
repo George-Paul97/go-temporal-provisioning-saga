@@ -1,0 +1,18 @@
+[scan]
+exclude = [
+  ".git/",
+  ".venv/",
+  "node_modules/",
+  "dist/",
+  "build/",
+  "vendor/",
+  "**/*.png",
+  "**/*.jpg",
+  "**/*.jpeg",
+  "**/*.gif",
+  "**/*.pdf",
+  "docker/grafana/dashboards/**"
+]
+
+[output]
+default_format = "md"

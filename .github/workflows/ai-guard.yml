@@ -1,0 +1,29 @@
+name: ai-guard (PR gate)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  ai-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ai-guard
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "git+https://github.com/George-Paul97/ai-code-review-gatekeeper.git@v0.1.0"
+
+      - name: Run ai-guard
+        run: |
+          ai-guard scan . --config ai-guard.toml --fail-on-findings

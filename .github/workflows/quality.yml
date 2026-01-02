@@ -1,0 +1,42 @@
+name: Quality
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  go-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22.x"
+          cache: true
+
+      - name: Go fmt (check)
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Fail if any file is not gofmt-formatted.
+          test -z "$(gofmt -l .)"
+
+      - name: Go vet
+        run: go vet ./...
+
+      - name: Go test
+        run: go test ./... -race
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.56.2
+          args: --timeout=5m
