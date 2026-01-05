@@ -1,34 +1,31 @@
-# Go Temporal Provisioning Saga
+# go-temporal-provisioning-saga
 
-A small reference project that demonstrates **Temporal workflows** + **API integrations** + **observability** for real-world automation scenarios.
+A minimal **Go + Temporal + Postgres** stack using Docker Compose, plus a small CI baseline:
+- **Go quality gate**: `gofmt` + `go vet` + `go test`
+- **ai-guard PR gate**: lightweight security/hygiene scan on pull requests
 
-This repo starts with a **local Temporal stack** (Temporal + Postgres + Temporal UI) and will evolve into:
-- a REST API service
-- a Temporal Worker running workflows/activities
-- mock provider integrations
-- OpenTelemetry-based tracing/metrics/logging
+The repo is intentionally small: it’s meant to be a clean starting point you can fork and extend.
 
----
+## What you get
 
-## Local Infrastructure (Temporal + Postgres)
+Services (via Docker Compose):
+- **Temporal Server** (gRPC): `localhost:7233`
+- **Temporal UI** (HTTP): `http://localhost:8080`
+- **Postgres** (TCP): `localhost:5432`
 
-### Services
-This project runs the following services via Docker Compose:
+Important:
+- `7233` is **gRPC**, not HTTP → opening `http://localhost:7233/` in a browser will fail (expected).
+- `5432` is **Postgres TCP**, not HTTP → opening it in a browser will fail (expected).
 
-- **Postgres** (Temporal persistence)
-- **Temporal** (server)
-- **Temporal UI** (web dashboard)
+## Requirements
 
-### Prerequisites
-- Docker Desktop (Windows/macOS/Linux)
-- Docker Compose v2 (`docker compose ...`)
+- Docker Desktop (running)
+- Go (recommended for local dev and to run the same checks as CI)
 
----
-
-## Quickstart
+## Quick start
 
 ### Start the stack
-From the project root:
 
 ```bash
 docker compose up -d
+docker compose ps
