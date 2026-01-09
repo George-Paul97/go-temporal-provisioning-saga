@@ -1,0 +1,8 @@
+# Keep Go sources consistent across OSes
+*.go text eol=lf
+
+# Shell scripts should be LF and executable on Unix
+*.sh text eol=lf
+
+# PowerShell scripts can remain text; LF is fine too
+*.ps1 text eol=lf
